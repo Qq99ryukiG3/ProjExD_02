@@ -4,13 +4,14 @@ import pygame as pg
 
 
 WIDTH, HEIGHT = 1600, 900
+
 delta = {
     pg.K_UP:(0,-5),
     pg.K_DOWN:(0,+5),
     pg.K_LEFT:(-5,0),
     pg.K_RIGHT:(+5,0),
 }
-
+#練習5こうかとんを爆弾と衝突したときにreturnするようにする
 def check_bound(rect: pg.Rect) -> tuple[bool, bool]:   
     yoko, tate = True, True
     if rect.left < 0 or WIDTH < rect.right:  # 横方向判定
@@ -35,7 +36,9 @@ def main():
     bd_img.set_colorkey((0,0,0))
     x = random.randint(0,WIDTH)
     y = random.randint(0,HEIGHT)
+
     bd_rct = bd_img.get_rect()
+    #爆弾rectの中心座標を乱数で指定
     bd_rct.center = x,y
     vx,vy = +5,+5
     clock = pg.time.Clock()
@@ -44,9 +47,11 @@ def main():
         for event in pg.event.get():
             if event.type == pg.QUIT: 
                 return
+        #演習問題3実装途中
         if kk_rct.colliderect(bd_rct):
             screen.blit(kkc_img,sum_mv)
-            
+            print("ゲームオーバー")
+            return
         
         key_lst = pg.key.get_pressed()
         sum_mv = [0,0]
