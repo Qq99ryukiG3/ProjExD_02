@@ -25,6 +25,8 @@ def main():
     bg_img = pg.image.load("ex02/fig/pg_bg.jpg")
     kk_img = pg.image.load("ex02/fig/3.png")
     kk_img = pg.transform.rotozoom(kk_img, 0, 2.0)
+    kkc_img = pg.image.load("ex02/fig/8.png")
+    kkc_img = pg.transform.rotozoom(kkc_img,0,4.0)
     kk_rct = kk_img.get_rect()
     kk_rct.center = 900,400
     clock = pg.time.Clock()
@@ -42,11 +44,10 @@ def main():
         for event in pg.event.get():
             if event.type == pg.QUIT: 
                 return
-        
-        if kk_rct.colliderect(bd_rct):  # 練習５
-            print("ゲームオーバー")
-            return 
+        if kk_rct.colliderect(bd_rct):
+            screen.blit(kkc_img,sum_mv)
             
+        
         key_lst = pg.key.get_pressed()
         sum_mv = [0,0]
         for k,mv in delta.items():
@@ -56,7 +57,6 @@ def main():
         kk_rct.move_ip(sum_mv)
         if check_bound(kk_rct) != (True, True):
             kk_rct.move_ip(-sum_mv[0], -sum_mv[1])
-
         screen.blit(bg_img, [0, 0])
         screen.blit(kk_img,kk_rct)
         bd_rct.move_ip(vx,vy)
